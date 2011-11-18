@@ -1,0 +1,33 @@
+!!!
+%html
+	%head
+		%title XFile
+		= stylesheet_link_tag    "application"
+		= javascript_include_tag "application"
+		= csrf_meta_tags
+	%body
+		#menu{:style => "background-color:#cccccc;"}
+			%ul{:style => "text-align:right;"}
+				%li{:style => "display:inline;"}
+					= link_to "Users", users_path
+					|
+				%li{:style => "display:inline;"}
+					= link_to "Documents", documents_path
+					|
+				%li{:style => "display:inline;"}
+					= link_to "Share", documents_users_path
+					|
+				%li{:style => "display:inline;"}
+					= link_to "Sign in", new_user_session_path
+					|
+				%li{:style => "display:inline;"}
+					= link_to "Sign out", destroy_user_session_path, :method => :delete
+					|
+				%li{:style => "display:inline;"}
+					= link_to "Sign up", new_user_registration_path
+		- if user_signed_in?
+			%div{:style => "background-color:#fbd7d7; font-size:13px; text-align:center;height: 25px; padding-top: 4px;"}
+				Olá, 
+				%strong
+					#{current_user.username}, você está logado há #{distance_of_time_in_words(@from_time, current_user.current_sign_in_at)} 
+		= yield

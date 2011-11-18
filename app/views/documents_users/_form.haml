@@ -1,0 +1,19 @@
+= form_for :documents_user, :url => documents_users_path do |f|
+  - if @documents_user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@documents_user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul
+        - @documents_user.errors.full_messages.each do |msg|
+          %li= msg
+  %p
+    %label{:for => "documents_user_user_id"}> User
+    \:
+    #{select("documents_user", "user_id", User.all.collect {|p| [ p.email, p.id ]}, {:include_blank => 'Choose a user'})}
+  %p
+    %label{:for => "documents_user_document_id"}> File
+    \:
+    #{select("documents_user", "document_id", Document.all.collect {|p| [ p.title, p.id ] }, {:include_blank => 'Choose a file'})}
+  %p
+    = f.submit 'Share'

@@ -1,0 +1,16 @@
+%h1 Editing documents_user
+- form_for(@documents_user) do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
+    = f.label :phone
+    %br/
+    = f.text_field :phone
+  %p
+    = f.submit 'Update'
+= link_to 'Show', @documents_user
+|
+\#{link_to 'Back', documents_users_path}

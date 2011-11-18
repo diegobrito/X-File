@@ -1,0 +1,18 @@
+%h1 Shared Files
+%table
+  %tr
+    %th Document
+    %th User
+    %th
+    %th
+  - @documents_users.each do |documents_user|
+    %tr
+      %td= truncate(documents_user.document.title, :length => 40)
+      %td= truncate(documents_user.user.email, :length => 40)
+      %td= link_to 'Destroy', destroy_document_and_user_relationship_path(documents_user.document.id, documents_user.user.id), :confirm => 'Você tem certeza?', :method => :delete
+
+%br/
+= link_to 'Share a file', new_documents_user_path
+= will_paginate @documents_users
+%td
+%td

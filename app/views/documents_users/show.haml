@@ -1,0 +1,9 @@
+%p
+  %b User:
+  = h @documents_user.user_id
+%p
+  %b File:
+  = h @documents_user.document_id
+= link_to 'Edit', edit_documents_user_path(@documents_user)
+|
+\#{link_to 'Back', documents_users_path}
