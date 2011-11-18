@@ -2,7 +2,10 @@ XFile::Application.routes.draw do
   
   root :to => 'users#index'
  
-  match "/d/users/sign_out" => "devise/sessions#destroy"
+  devise_scope :user do
+    get "/logout" => "devise/sessions#destroy", :as => "logout"
+  end
+
   devise_for :users, :path_prefix => 'd'
   
   resources :users
