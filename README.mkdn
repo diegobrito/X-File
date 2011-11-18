@@ -1,0 +1,45 @@
+# X-File
+
+## Introdução
+
+O X-File é uma aplicação simples e enxuta para compartilhamento de arquivos em Ruby on Rails.
+
+**OBS**: projeto em fase alpha.
+
+## Como funciona?
+
+Com esta aplicação usuários podem compartilhar arquivos com outros usuários. Veja os tipos de arquivos que podem ser compartilhados: .pdf, .doc, .xls, .ppt, .jpg, .png, .gif. 
+
+## Quais as principais gems que o projeto utiliza?
+
+* devise
+* cancan
+* paperclip
+* haml
+
+## Como faço para instalar?
+
+Basta clonar o repositório e rodar o projeto localmente em sua máquina.
+
+### Passo a passo para utilizar (Rails 3)
+
+	git clone https://github.com/diegobrito/X-File.git
+	
+	cd x-file
+	
+	bundle install --without production test
+	
+	rake db:migrate
+	
+	rails s
+
+## Esta aplicação é mantida pela [D2B Comunicação][ii]
+
+A autoria do projeto é de [Diego Brito][diegobrito], que além de Railer é publicitário, blogueiro, palestrante e autor do livro [Criação de Sites na era da Web 2.0][livro]
+
+[![Agência Digital SP][logo]][ii]
+
+[ii]: http://www.d2bagenciadigital.com.br/ "Agência Digital"
+[logo]: http://www.d2bagenciadigital.com.br/images/logos/d2b-comunicacao.png "Logo Agência Digital"
+[diegobrito]: http://www.diegobrito.com.br/ "Blog de Marketing Digital e Tecnologia"
+[livro]: http://www.diegobrito.com.br/livro-criacao-de-sites-na-era-da-web-20 "Livro Criação de Sites"
