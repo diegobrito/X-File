@@ -1,15 +1,27 @@
 class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
+  load_and_authorize_resource  
+  
   def index
-    @documents = Document.all
-
+    @user = current_user  
+    @documents = Document.paginate :page => params[:page], :per_page => 8, :order => 'created_at DESC'
+    @files_h1 = "All Files"
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @documents }
     end
   end
 
+  def my_files
+    @user = current_user
+    @files_h1 = "My Files"  
+    respond_to do |format|
+      format.html { render :template => "documents/index"}
+      format.json { render :json => @documents }
+    end
+  end
+  
   # GET /documents/1
   # GET /documents/1.json
   def show

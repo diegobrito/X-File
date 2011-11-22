@@ -1,4 +1,12 @@
 %p
+	Created at:
+	= @user.created_at.strftime("%d/%m/%Y as %H:%M")
+
+%p
+	Updated at:
+	= @user.updated_at.strftime("%d/%m/%Y as %H:%M")
+
+%p
 	Username:
 	= @user.username
 
@@ -17,5 +25,25 @@
 %p
 	Access rule:
 	= @user.role
+
+%p
+	Login count:
+	= @user.sign_in_count
+
+%p
+	Last sign in.:
+	= @user.current_sign_in_at.strftime("%d/%m/%Y as %H:%M")
+
+%p
+	Penultimate sign in:
+	= @user.last_sign_in_at.strftime("%d/%m/%Y as %H:%M")
+
+%p
+	Last IP:
+	= @user.current_sign_in_ip
+
+%p
+	Penultimate IP:
+	= @user.last_sign_in_ip
 	
 = link_to 'All users', users_path

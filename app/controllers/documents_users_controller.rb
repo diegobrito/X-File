@@ -1,6 +1,8 @@
 class DocumentsUsersController < ApplicationController
   # GET /documents_users
   # GET /documents_users.xml
+  load_and_authorize_resource  
+
   def index
     @documents_users = DocumentsUser.paginate :page => params[:page], :per_page => 11, :order => 'created_at DESC'
     @user = User.all

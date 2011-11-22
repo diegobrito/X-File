@@ -3,22 +3,17 @@
   %thead
     %tr
       %th Username
-      %th First Name
-      %th Last Name
       %th Email
       %th Login Count
       %th Last Sign In
       %th Role
       %th Created At
-      %th Last Edited
       %th
       %th
   %tbody
     - @users.each do |user|
       %tr
-        %th= user.username
-        %th= user.first_name
-        %th= user.last_name
+        %th= link_to user.username, user_path(user)
         %th= user.email
         %th= user.sign_in_count
         %th
@@ -27,8 +22,7 @@
           - else
             = time_ago_in_words(user.last_sign_in_at.to_datetime)+' ago'
         %th= user.role
-        %th= user.created_at.strftime("%d/%m/%Y as %H:%M")
-        %th= user.updated_at.strftime("%d/%m/%Y as %H:%M")
+        %th= user.created_at.strftime("%d/%m/%Y")
         %th= link_to "Edit", edit_user_path(user)
         %th= link_to "Delete", user, :method => :delete, :confirm => "Are you sure?"
 %p= link_to "New User", new_user_path

@@ -1,8 +1,19 @@
-%p#notice= notice
-
-%p
-  %b Title:
-  = @document.title
+%table
+  %tr
+    %th Created at
+    %th Title
+    %th Descrição
+    %th File name
+    %th File size
+    %tr
+      %td= @document.created_at.strftime("%d/%m/%Y as %H:%M")
+      %td= h truncate(@document.title, :length => 25)
+      %td= h truncate(@document.description, :length => 40)
+      %td= h truncate(@document.file_file_name, :length => 30)
+      %td
+        = h number_to_human_size(@document.file_file_size)
+      %td
+        %b= link_to "Baixar", @document.file.url, :target => "blank"
 
 = link_to 'Edit', edit_document_path(@document)
 \|

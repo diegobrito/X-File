@@ -1,7 +1,7 @@
 !!!
 %html
 	%head
-		%title XFile
+		%title X-File
 		= stylesheet_link_tag    "application"
 		= javascript_include_tag "application"
 		= csrf_meta_tags
@@ -9,25 +9,40 @@
 		#menu{:style => "background-color:#cccccc;"}
 			%ul{:style => "text-align:right;"}
 				%li{:style => "display:inline;"}
-					= link_to "Users", users_path
-					|
+					= link_to "Users", users_path if can? :create, @user
 				%li{:style => "display:inline;"}
-					= link_to "Documents", documents_path
-					|
+					= link_to "All Files", documents_path if can? :create, @document
 				%li{:style => "display:inline;"}
-					= link_to "Share", documents_users_path
-					|
+					= link_to "My Files", my_files_path if can? :read, @document
 				%li{:style => "display:inline;"}
-					= link_to "Sign in", new_user_session_path
-					|
+					= link_to "Share", documents_users_path if logged_in? if can? :create, @document_user
+				-if logged_in?
+				-else
+					%li{:style => "display:inline;"}
+						= link_to "Sign in", new_user_session_path
 				%li{:style => "display:inline;"}
-					= link_to "Sign out", destroy_user_session_path, :method => :delete
-					|
+					= link_to "Logout", logout_path if logged_in?
 				%li{:style => "display:inline;"}
-					= link_to "Sign up", new_user_registration_path
+					- if logged_in?
+						= link_to "Sign up", new_user_registration_path if is_admin?
 		- if user_signed_in?
 			%div{:style => "background-color:#fbd7d7; font-size:13px; text-align:center;height: 25px; padding-top: 4px;"}
 				Olá, 
 				%strong
 					#{current_user.username}, você está logado há #{distance_of_time_in_words(@from_time, current_user.current_sign_in_at)} 
+
+		%p#notice= notice
+		%p#notice= alert
+		%p#notice= flash[:error]
+
 		= yield
+		
+		#footer{:style => "background-color:#FBD7D7;"}	
+			%a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/", :rel => "license"}
+				%img{:alt => "Licença Creative Commons", :src => "http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png", :style => "border-width:0"}/
+			= succeed "Este" do
+				%br/
+			%span{:href => "http://purl.org/dc/dcmitype/Dataset", :rel => "dct:type", "xmlns:dct" => "http://purl.org/dc/terms/"} trabalho
+			foi licenciado com uma Licença
+			= succeed "." do
+				%a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/", :rel => "license"} Creative Commons - Atribuição - NãoComercial - CompartilhaIgual 3.0 Não Adaptada
