@@ -8,23 +8,24 @@
 	%body
 		#menu{:style => "background-color:#cccccc;"}
 			%ul{:style => "text-align:right;"}
-				%li{:style => "display:inline;"}
-					= link_to "Users", users_path if can? :create, @user
-				%li{:style => "display:inline;"}
-					= link_to "All Files", documents_path if can? :create, @document
-				%li{:style => "display:inline;"}
-					= link_to "My Files", my_files_path if can? :read, @document
-				%li{:style => "display:inline;"}
-					= link_to "Share", documents_users_path if logged_in? if can? :create, @document_user
+				- if can? :manage, User
+					%li{:style => "display:inline;"}
+						= link_to "Users", users_path if can? :create, @user
+				- if can? :manage, Document
+					%li{:style => "display:inline;"}
+						= link_to "All Files", documents_path
+				- if can? :read, Document
+					%li{:style => "display:inline;"}
+						= link_to "My Files", user_root_path
+				- if can? :manage, DocumentsUser
+					%li{:style => "display:inline;"}
+						= link_to "Share", documents_users_path
 				-if logged_in?
 				-else
 					%li{:style => "display:inline;"}
 						= link_to "Sign in", new_user_session_path
 				%li{:style => "display:inline;"}
 					= link_to "Logout", logout_path if logged_in?
-				%li{:style => "display:inline;"}
-					- if logged_in?
-						= link_to "Sign up", new_user_registration_path if is_admin?
 		- if user_signed_in?
 			%div{:style => "background-color:#fbd7d7; font-size:13px; text-align:center;height: 25px; padding-top: 4px;"}
 				Olá, 
@@ -36,7 +37,8 @@
 		%p#notice= flash[:error]
 
 		= yield
-		
+		%br
+		%br
 		#footer{:style => "background-color:#FBD7D7;"}	
 			%a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/", :rel => "license"}
 				%img{:alt => "Licença Creative Commons", :src => "http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png", :style => "border-width:0"}/

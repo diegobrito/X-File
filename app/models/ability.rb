@@ -12,7 +12,6 @@ class Ability
         can :manage, DocumentsUser
       end
       if user.role == "customer"
-        can :manage, DocumentsUser
         can [:my_files], [Document]
       end
     end

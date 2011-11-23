@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource  
   
   def index
-    @users = User.all
+    @users = User.page(params[:page]).order('created_at DESC')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @users }

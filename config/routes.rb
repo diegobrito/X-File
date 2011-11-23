@@ -2,20 +2,16 @@ XFile::Application.routes.draw do
   
   root :to => "paginas#index"
   
+  devise_for :users, :path_prefix => 'd'
+  
+  resources :users
+
   devise_for :users do
-    #get "/", :to => "devise/sessions#new"
-    #root :to => "users#index"
     get "/logout" => "devise/sessions#destroy", :as => "logout"
   end  
   
   match '/my-files' => "documents#my_files", :as => :user_root
-  
-  devise_for :users, :path_prefix => 'd'
-  
-  resources :users
-  match "/admin" => "users#sign_in"
-  
-  match "/my-files" => "documents#my_files", :as => "my_files"
+    
   resources :documents
   resources :documents_users
   match "/documents_user/destroy/:document_id/:user_id" => "documents_users#destroy", :as => "destroy_document_and_user_relationship"

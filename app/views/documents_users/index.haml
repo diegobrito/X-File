@@ -10,9 +10,25 @@
       %td= truncate(documents_user.document.title, :length => 40)
       %td= truncate(documents_user.user.email, :length => 40)
       %td= link_to 'Destroy', destroy_document_and_user_relationship_path(documents_user.document.id, documents_user.user.id), :confirm => 'Você tem certeza?', :method => :delete
+%br
 
-%br/
+.pagination
+  =will_paginate @documents_users, :container => false, :previous_label => "Previous", :next_label => "Next"
+  .page_info
+    -if @documents_users.total_entries == 1
+      (
+      = @documents_users.total_entries
+      result
+      )
+    -elsif @documents_users.total_entries == 0
+      (No results found)
+    -elsif @documents_users.total_entries >= 2
+      (
+      = @documents_users.total_entries
+      results
+      )
+
+%br
 = link_to 'Share a file', new_documents_user_path
-= will_paginate @documents_users
 %td
 %td

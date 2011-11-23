@@ -1,0 +1,42 @@
+#meus_arquivos_lista
+  %h1 My Files
+  .clear
+  - if @current_user.documents.count < 1
+    %h3{:style => "color:red;"} >> Nenhum documento foi compartilhado até o momento com o seu usuário.
+  - else
+    %table.tabela_index
+      %tr
+        %th Title
+        %th Description
+        %th Created at
+        %th File name
+        %th File size
+        %th
+        %th
+        %th
+        - @current_user.documents.each do |document|
+          %tr
+            %td= truncate(document.title, :length => 30)
+            %td= truncate(document.description, :length => 60)
+            %td= document.created_at.strftime("%d/%m/%Y as %H:%M")
+            %td= h truncate(document.file_file_name, :length => 40)
+            %td
+              = h number_to_human_size(document.file_file_size)
+            %td
+              %b= link_to "Baixar", document.file.url, :target => "BLANK" if document.file_file_name?
+
+.pagination
+  = will_paginate @documents, :container => false, :previous_label => "Previous", :next_label => "Next"
+  .page_info
+    -if @documents.total_entries == 1
+      (
+      = @documents.total_entries
+      result
+      )
+    -elsif @documents.total_entries == 0
+      (No results found)
+    -elsif @documents.total_entries >= 2
+      (
+      = @documents.total_entries
+      results
+      )
