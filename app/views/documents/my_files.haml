@@ -1,7 +1,7 @@
 #meus_arquivos_lista
   %h1 My Files
   .clear
-  - if @current_user.documents.count < 1
+  - if @documents.count < 1
     %h3{:style => "color:red;"} >> Nenhum documento foi compartilhado até o momento com o seu usuário.
   - else
     %table.tabela_index
@@ -14,7 +14,7 @@
         %th
         %th
         %th
-        - @current_user.documents.each do |document|
+        - @documents.each do |document|
           %tr
             %td= truncate(document.title, :length => 30)
             %td= truncate(document.description, :length => 60)

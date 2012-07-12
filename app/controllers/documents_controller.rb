@@ -14,11 +14,7 @@ class DocumentsController < ApplicationController
   end
 
   def my_files
-    @documents = current_user.documents
-    #@documents = Document.page(params[:page]).order('created_at DESC')
-    #@documents = Document.joins("SELECT documents.* FROM documents INNER JOIN documents_users ON documents.id = documents_users.document_id WHERE documents_users.user_id = 1")
-    #@documents = Document.joins(:users)
-    #@documents = Document.all(:conditions => ["users.id=?", self])
+    @documents = current_user.documents.page(params[:page])
     @user = current_user
     @files_h1 = "My Files"  
     respond_to do |format|
